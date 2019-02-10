@@ -131,7 +131,6 @@ int main(int argc, char **argv ){
      stress_test(N, M);
      return 0;
    }
-printf("wtf");
     if (mode == 3){
       printf("wtf");
      //int N = atoi(argv[2]);
