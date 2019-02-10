@@ -132,7 +132,6 @@ int main(int argc, char **argv ){
      return 0;
    }
     if (mode == 3){
-      printf("wtf");
      //int N = atoi(argv[2]);
      //int M = atoi(argv[3]);
       if (argc < 1){
