@@ -1,10 +1,11 @@
+#include <time.h>
 #include "string_matching.h"
 
 int string_matching_kmp(char *text, int N, char* pattern, int M){
 	int count = 0;
 	int *overlap_list = overlap_array(pattern, M);
-	printf("overlap function: ");
-	print_array(overlap_list,M);
+	//printf("overlap function: ");
+	//print_array(overlap_list,M);
 	
 	//TODO - implement kmp search
     int i = 0;
@@ -76,3 +77,21 @@ int * overlap_array(char* pattern, int M){
 	}
     return ol_list;
 }
+
+int main(){
+	time_t start, end;
+	int i = 0;
+	double difference;
+	
+	start = clock();
+	for (i = 0; i < 18000000; i++){
+	string_matching_kmp("tictictictac", 12, "tictic", 6);
+	}
+	end = clock();
+
+	difference = (double)(end - start)/CLOCKS_PER_SEC;
+	printf("%lf\n", difference);
+
+}
+
+
