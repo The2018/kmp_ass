@@ -9,7 +9,7 @@ int string_matching_naive(char *text, int N, char* pattern, int M){
 				break;
 			}
 			if (j == M-1) {
-			count += 1;
+				count += 1;
 			}
 		}
 	}
