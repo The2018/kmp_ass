@@ -19,7 +19,7 @@ void short_test (char *text, int N, char * pattern, int M){
 
 void stress_test(int N, int M){
   static char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  srand(time(NULL));   // Initialization, should only be called once.
+  srand(time(NULL));  // Initialization, should only be called once.
   
   while (1) {
     int n = rand() % (N-3) + 3;      // Returns a pseudo-random integer between 3 and N.
