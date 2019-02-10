@@ -82,7 +82,7 @@ int main(){
 	time_t start, end;
 	int i = 0;
 	double difference;
-	
+
 	start = clock();
 	for (i = 0; i < 18000000; i++){
 	string_matching_kmp("tictictictac", 12, "tictic", 6);
@@ -91,6 +91,15 @@ int main(){
 
 	difference = (double)(end - start)/CLOCKS_PER_SEC;
 	printf("%lf\n", difference);
+
+	static char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  	srand(time(NULL));   
+	char *pattern = NULL;
+    for (int i=0; i<400; i++){
+    int pos = rand() % (int)(sizeof(charset) -1);
+      pattern[i] = charset[pos];      
+    }
+    printf("%s", pattern);
 
 }
 

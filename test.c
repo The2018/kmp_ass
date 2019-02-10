@@ -53,16 +53,62 @@ void stress_test(int N, int M){
   }  
 }
 
+void performance_test(){
+  static char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  srand(time(NULL));   
+
+  time_t start, end;
+
+  FILE *fp;
+  fp = fopen("performance.csv", "w+");
+  fprintf(fp,"N,Naive,KMP");
+
+  for (int N = 10000; N < 1000000; N += 10000){
+
+    fprintf(fp, "\n%d", N);
+
+    char *text = malloc(N+1);
+    for (int i=0; i<N; i++){
+    int pos = rand() % (int)(sizeof(charset) -1);
+      text[i] = charset[pos];      
+    }
+    text[N] = '\0';
+  
+    char *pattern = malloc(400+1);
+    for (int i=0; i<400; i++){
+    int pos = rand() % (int)(sizeof(charset) -1);
+      pattern[i] = charset[pos];      
+    }
+    pattern[400] = '\0';
+
+    double difference1 = 0, difference2 = 0;
+    start = clock();
+    string_matching_naive(text, N, pattern, 400);
+    end = clock();
+
+    difference1 = (double)(end - start)/CLOCKS_PER_SEC;
+
+    start = clock();
+    string_matching_kmp(text, N, pattern, 400);
+    end = clock();
+
+    difference2 = (double)(end - start)/CLOCKS_PER_SEC;
+    fprintf(fp,",%lf,%lf", difference1,difference2);
+
+
+  }
+
+}
+
 int main(int argc, char **argv ){
-  if (argc < 4){
-    printf("To run: test <1> <text> <N> <pattern> <M>\n or test <2> <N> <M>\n");
+  int mode = atoi(argv[1]);
+  if (argc < 2){
+    printf("To run: test <1> <text> <N> <pattern> <M>\n or test <2> <N> <M>\n or test <3>\n");
     return 0;
    }
    
-   int mode = atoi(argv[1]);
-   
-   if (mode == 1){
-	   if (argc < 6){
+  if (mode == 1){
+	 if (argc < 6){
 			printf("To run: test <1> <text> <N> <pattern> <M>\n");
 			return 0;
 	   }
@@ -72,14 +118,32 @@ int main(int argc, char **argv ){
 	   int M = atoi(argv[5]);
 	   printf("M=%d\n",M);
 	   short_test(text, N, pattern, M);
-	   return 0;
    }
    
-   int N = atoi(argv[2]);
-   int M = atoi(argv[3]);
-   
-   stress_test(N, M);
-   
+    if (mode == 2){
+      if (argc < 4){
+        printf("To run: test <2> <N> <M>\n");
+        return 0;
+       }
+     int N = atoi(argv[2]);
+     int M = atoi(argv[3]);
+     
+     stress_test(N, M);
+     return 0;
+   }
+printf("wtf");
+    if (mode == 3){
+      printf("wtf");
+     //int N = atoi(argv[2]);
+     //int M = atoi(argv[3]);
+      if (argc < 1){
+        printf("To run: test <3>\n");
+        return 0;
+       }
+     performance_test();
+     return 0;
+  }
+
    return 0;
   
 }
